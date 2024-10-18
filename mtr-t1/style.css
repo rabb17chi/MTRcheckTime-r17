@@ -1,0 +1,4 @@
+.station-btn {
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+}
