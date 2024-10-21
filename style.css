@@ -1,4 +1,17 @@
 .station-btn {
     background-clip: text !important;
     -webkit-text-fill-color: transparent;
+    opacity: 0;
+    cursor: pointer;
+    scale: 2; 
+    margin: 0;
+    padding: 0;
+    font-size: 0.8em;
+    position: absolute;
+    z-index: 2;
+    border: 0;
+}
+
+.station-btn:hover {
+    opacity: 0.9;
 }

@@ -14,22 +14,40 @@ mapInfoContainer.style.display = 'none'
 }
 
 abc.forEach(item=>{ // change the color(s) of O
-    let styleString = '' // string that being added to the O circle style
+    let styleArr = [] // Arr that being added to the O circle style
     const stationLineArray = [...item.classList].filter(item=>item != 'station-btn') // get line array
     const count = stationLineArray.length // number of lines that station has
     stationLineArray.map(item=> {
-        styleString += `${lineColor[item]}, ` // use "lineColor" with the key(item) to get the HEXcolor (eg. return #FFF)
+        styleArr.push(lineColor[item]) // use "lineColor" with the key(item) to get the HEXcolor (eg. return #FFF)
     })
-    console.log (`stylestring: '${styleString.slice(0, -2)}' `) // chop the last2 elements
+    console.log ('stylestring:', styleArr) // chop the last2 elements
 
-    if (count == 1) { // if the station has only 1 line, the 'O' will be using 1 color also.
-        item.style['background'] = `${styleString.slice(0, -2)}`
+    if (count == 1) { // if the station has only 1 line, the 'O' will be using 1 color.
+        item.style['background'] = styleArr[0]
         return
     }
-    item.style['background'] = `conic-gradient(${styleString.slice(0, -2)})` // else if station has 2 or above lines, use gradient to display.
-})
+    if (count == 2) {
+        item.style['background'] = `conic-gradient(${styleArr[0]} 0deg, ${styleArr[0]} 180deg,
+                                                   ${styleArr[1]} 180deg, ${styleArr[1]} 360deg)`
+        return
+    }
+    if (count == 3) {
+        item.style['background'] = `conic-gradient(${styleArr[0]} 0deg, ${styleArr[0]} 120deg,
+                                                     ${styleArr[1]} 120deg, ${styleArr[1]} 240deg,
+                                                      ${styleArr[2]} 240deg, ${styleArr[2]} 360deg)`
+        return
+    }
+    if (count == 4) {
+        item.style['background'] = `conic-gradient(${styleArr[0]} 0deg, ${styleArr[0]} 90deg,
+                                                     ${styleArr[1]} 90deg, ${styleArr[1]} 180deg,
+                                                     ${styleArr[2]} 180deg,${styleArr[2]} 270deg,
+                                                      ${styleArr[3]} 270deg, ${styleArr[3]} 360deg)`
+        return
+    }
+    }
+)
 
-abc.forEach(item=>{ // add fetch trains-data for every O.
+abc.forEach(item=>{ // add fetch trains-data for every button O.
     item.addEventListener('click',async (e)=>{
         let msg = ''
         mapInfoContainer.innerHTML = ''
@@ -40,7 +58,7 @@ abc.forEach(item=>{ // add fetch trains-data for every O.
         // console.log('BtnOfStationLine', BtnOfStationLine) // printing the classList, which should only show what line(s) the station has (eg. 觀塘線KTL/荃灣線TWL)
         BtnOfStationLine.map(async(item,index)=>{ // loop every line to fetch trains-data
             let url = `https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?line=${item}&sta=${BtnOfStationName}` // url from open-api, item(1st para) = line; StationName(2nd para) = station
-            const res = await fetch(url).then(res=>res.json()).then(data=>data.data) // normal stuff to handle fetched items.
+            const res = await fetch(url).then(res=>res.json()).then(data=>data.data)
             const stationInfo = res[`${item}-${BtnOfStationName}`]  // getting the data that we need.('res' is object, so we have to [] also)
             console.log(`(${lineData[item]}) ${BtnOfStationName} station`,stationInfo) // printing the station, UP-DOWN list and time.
 
@@ -48,7 +66,7 @@ abc.forEach(item=>{ // add fetch trains-data for every O.
             const downList = stationInfo.DOWN || []
             const upList = stationInfo.UP || [] 
 
-             // print for checking the downList trains (data we need: [DEST](終點) and [time])
+             // data we need: [DEST](終點) and [time]
             console.log('downList',downList ? downList : null)
             console.log('upList',upList ? upList : null)
 
