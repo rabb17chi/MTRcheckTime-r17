@@ -6,8 +6,8 @@ const checkFun = async () => {
     console.clear()
     console.log('--- new check ---')
 
-    const lineInput = document.getElementById('line-input').value
-    const stationInput = document.getElementById('station-input').value
+    const lineInput = document.getElementById('line-selection').value
+    const stationInput = document.getElementById('station-selection').value
     if (lineInput=='' || stationInput=='') {
         console.log('please enter both information.')
         return
@@ -55,12 +55,12 @@ export function calculateTimeDiff(trainTime,currentTime) {
         const currTime = new Date(currentTime).getMinutes()
         let status;
         if (trainMin === currTime) {
-             status = '列車已到站，請等候下一班列車。'
+             status = '已到站，請等候下一班列車。'
         }
         if (trainMin > currTime) {
-             status = `列車將於 ${trainMin-currTime} 分鐘後到達。`
+             status = `將於 ${trainMin-currTime} 分鐘後到達。`
         } else if (trainMin < currTime) {
-             status = `列車將於 ${trainMin+60-currTime} 分鐘後到達。`
+             status = `將於 ${trainMin+60-currTime} 分鐘後到達。`
         }
         return status
 }

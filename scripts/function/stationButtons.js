@@ -10,7 +10,8 @@ const abc = document.querySelectorAll('.station-btn') // get all buttons with cl
 let opened = false; // ContainerBox open/close 
 
 function closeContainer() {
-mapInfoContainer.style.display = 'none'
+    mapInfoContainer.style.display ='none'
+mapInfoContainer.innerHTML=''
 }
 
 abc.forEach(item=>{ // change the color(s) of O
@@ -20,7 +21,6 @@ abc.forEach(item=>{ // change the color(s) of O
     stationLineArray.map(item=> {
         styleArr.push(lineColor[item]) // use "lineColor" with the key(item) to get the HEXcolor (eg. return #FFF)
     })
-    console.log ('stylestring:', styleArr) // chop the last2 elements
 
     if (count == 1) { // if the station has only 1 line, the 'O' will be using 1 color.
         item.style['background'] = styleArr[0]
@@ -66,14 +66,19 @@ abc.forEach(item=>{ // add fetch trains-data for every button O.
             const downList = stationInfo.DOWN || []
             const upList = stationInfo.UP || [] 
 
-             // data we need: [DEST](終點) and [time]
+             // Need: [DEST](終點) and [time]
             console.log('downList',downList ? downList : null)
             console.log('upList',upList ? upList : null)
 
             // 每條線 一個 section, 裡面包括: [線路-站名; 月台的最新4班列車狀況(終點站, 到站/下一班列車的時間)]
             msg += `
             <section style="display:flex">
-            <div class=${item}-${BtnOfStationName} style='display:block;width:550px;height:auto;'>
+            <div class=${item}-${BtnOfStationName} id=${item}-${BtnOfStationName}-${index}
+                style="
+                width: 420px;
+                background-color: ${lineColor[item]}65;
+                "
+                >
             <h2>${lineData[item]} - ${bigData[BtnOfStationName]}</h2>
             <div style="display:flex;flex-direction:row;justify-content:space-around">
                 
@@ -84,18 +89,19 @@ abc.forEach(item=>{ // add fetch trains-data for every button O.
                     }
                     let status;
                     status = calculateTimeDiff(item.time, stationInfo[`curr_time`])
-                    return `<p style="width:260px;">終點站：<b>${bigData[item.dest]}</b> <br/> ${status}</p>`
+                    return `<p style="width:210px;">終點站：<b>${bigData[item.dest]}</b> <br/> ${status}</p>`
                 }) + "</span>":''
                 }
                 
             
-            ${downList.length>0 ? `<span id='downlist-${item}'>` + downList.map((item,index)=>{ // 即使Line46預防空白資料, 進一步使用array.length檢查是否有資料, 避免版面不符合預期.
+            ${downList.length>0 ? `<span id='downlist-${item}'>` + 
+            downList.map((item,index)=>{ // 即使Line46預防空白資料, 進一步使用array.length檢查是否有資料, 避免版面不符合預期.
                 if (index > 3) { // 部分車站提供4個以上的數據組, 為一致性便忽略這些資料
                     return
                 }
                 let status;
                 status = calculateTimeDiff(item.time, stationInfo[`curr_time`])
-                return `<p style="width:260px;">終點站：<b>${bigData[item.dest]}</b> <br/> ${status}</p>`
+                return `<p style="width:210px;">終點站：<b>${bigData[item.dest]}</b><br/> ${status} </p>`
             }) + "</span>": ''
             }
             
@@ -104,14 +110,18 @@ abc.forEach(item=>{ // add fetch trains-data for every button O.
             </section>
             <hr />
             `
-            mapInfoContainer.style.display = 'block' // 由none改變成block, 展現出來.
+            mapInfoContainer.style.display = 'block' // 由none改變成block
             mapInfoContainer.innerHTML = msg.replaceAll(',','') // 減去不必要的符號
+            // document.getElementById(`${item}-${BtnOfStationName}-${index}`).style.background += `linear-gradient(to bottom, #fff 5%, ${lineColor[item]})`
+
         })
         opened = true // container的狀況, 允許下面的function執行 關閉的工作 (Line10)
+        mapInfoContainer.style.display = 'block'
+        mapInfoContainer.style.overflowY = 'scroll'
         setTimeout(()=>{ // timeout延遲 關閉按鈕 的出現, 避免fetch api過久而影響 關閉按鈕 的交互.
-            mapInfoContainer.innerHTML += `<span id='container-closeBtn' style='position:absolute;top:1%;left:90%;color:red;'>X</span>`
+            mapInfoContainer.innerHTML += `<span id='container-closeBtn' style='position:sticky;top:10%;color:red;'>X</span>`
             document.getElementById('container-closeBtn').addEventListener('click',closeContainer)
-        },300)
+        },500)
 
         })
 

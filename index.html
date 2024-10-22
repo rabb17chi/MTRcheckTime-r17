@@ -18,8 +18,9 @@
             max-width:1200px;
             width:100%;
             position:relative">
+            <div class="image-holder">
                 <img src="./resources/testMap.svg" style="width:100%;" />
-        
+            </div>
                 <line>
                 <!-- 東鐵線 EAL-->
                 <span id="EAL">
@@ -452,8 +453,10 @@
                 z-index:5;
                 background-color:rgba(30,30,30,0.95);
                 color:white;
-                top:0%;left:50%;
-                transform:translateX(-50%)"
+                top:5%;left:50%;
+                transform:translateX(-50%);
+                height:328px;
+                display:none"
             >
             </div>
 
@@ -461,17 +464,39 @@
     </div>
 
     <div id="text-checker">
+        <div class="select-container">
         <label>
             <h3>MTR Line</h3>
-            <input type="text" placeholder="Your line" id="line-input" required/> 
+            <!-- <input type="Select" placeholder="Your line" id="line-input" required/>  -->
+            <select id="line-selection" name="line">
+                <option>AEL</option>
+                <!-- <option>TCL</option>
+                <option>TML</option>
+                <option>TKL</option>
+                <option>EAL</option>
+                <option>SIL</option>
+                <option>TWL</option>
+                <option>ISL</option>
+                <option>KTL</option> -->
+             </select>
         </label>
 
         <label>
-            <h3>MTR station</h3>
-            <input type="text" placeholder="Your station" id="station-input" required/>
+            <h3>MTR station</h3> <span id="station-name-for-selectBox"></span>
+            <!-- <input type="text" placeholder="Your station" id="station-input" required/> -->
+             <select id="station-selection" name="station">
+                <option> </option>
+                <option value="HOK">HOK</option>
+                <option value="KOW">KOW</option>
+                <option value="TSY">TSY</option>
+                <option value="AIR">AIR</option>
+                <option value="AWE">AWE</option>
+             </select>
         </label>
-
+        <!-- <p>Please select AEL only.</p> -->
+        </div>
         <hr />
+
         <button id="checkBtn">Check</button>
         <div id="trains-info-container">
         </div>
