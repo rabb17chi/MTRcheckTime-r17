@@ -13,6 +13,12 @@ Map Search:
 
 Data Explain:
 Once we called the API with `status=1`, means that we connected the API-service and got the data successfully. Now, let's see the data-format and how we use it:
+The Object {DOWN,UP,curr_time,sys_time}: 
+1. sys_time-> System time, I guess it is the time of the API server/MTR server, we never used it for our checker-app.
+2. curr_time-> Current Time, I guess it is the time we called the API service. We use this curr_time to get the time-difference between the trains and users.
+3. DOWN/UP-> Incoming 4-trains' data { dest, time, valid } (listing the things we need only. 'Valid' is never used in the app, but by this we can check/get-know is the station in problem(港鐵塞車／故障))
+ 3.1 dest: 終點站 destination, showing the train's end-point(_LOL, endpoint_) eg. KTL(to HO MAN TIN / WHAMPOA) 觀塘線－何文田／黃埔 ; TKL(to LOHAS Park / PO LAM) 將軍澳線－康城／寶琳
+ 3.2 time: time, showing the time that train arrvied to the station(should be accurate but depends on any passenger(s) trolling/do fck-thngs). Using this 'time' and curr_time to calculate the time-gap(how many mins left for train arrival)
 
 
 Map: MTR System Map, circles for buttons(function inside also) [btw, they may be at wrong pos if u scale the webpage, especially if u use mobile.]
