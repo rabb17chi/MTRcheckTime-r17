@@ -9,10 +9,10 @@ Clicked 1 of the buttons would show the info of the station(Name of the station,
 ---
 
 SearchBox:
----
-Default Input1 - AEL (Airport Line)
+===============
+Default Input1 - AEL (Airport Line) ; 
 Default Input2 - AEL's stations
-//
+
 ---
 Disadvantages/Diffuculties of 'SearchBox':
 1. Too many stations (it seems that MTR has 99stations - editing at 24/10/2024). Making the Input2 too big and hard to find the STATION that we actually need.
