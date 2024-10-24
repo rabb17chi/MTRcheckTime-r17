@@ -16,7 +16,7 @@ Map Search:
    line- from button's classList(filter 'station-btn'), stationName- from button's id(3 letters length *MUST*); Map the classList to send the lines with the station-name to API and get JSON object back.
 ---
 Data Explain:
-Once we called the API with `status=1`, means that we connected the API-service and got the data successfully. Now, let's see the data-format and how we use it:
+Once we called the API with `status==1`, means that we connected the API-service and got the data successfully. Now, let's see the data-format and how we use it:
 The Object {DOWN,UP,curr_time,sys_time}: 
 1. sys_time-> System time, I guess it is the time of the API server/MTR server, we never used it for our checker-app.
 2. curr_time-> Current Time, I guess it is the time we called the API service. We use this curr_time to get the time-difference between the trains and users.
