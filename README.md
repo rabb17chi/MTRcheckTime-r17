@@ -8,7 +8,7 @@ Map Search:
  2.1 Functions are also set for button
    2.1.1 Layout-color: the color(s) of the circle depends on the LINEs that the station belongs (Check 'ADMIRALTY', it has 4-lines, so we used 'conic-gradient' and set the angle for each station without fade.)
    2.1.2 Layout-Position: the pos of each circle may not be exactly on/perfect around the original map's station. (I should use mobile-device to set the pos but i used 1920*1080 and 100% scale of PC chrome. Sorry to mobile users)
-   2.1.3 Functions: every circle has a function that called the MTR-Open-API from HKGovernment; (SourceHere)[https://data.gov.hk/en-data/dataset/mtr-data2-nexttrain-data] ; the parameters we have to post to the API (line and stationName), where we already set:
+   2.1.3 Functions: every circle has a function that called the MTR-Open-API from HKGovernment; [SourceHere](https://data.gov.hk/en-data/dataset/mtr-data2-nexttrain-data) ; the parameters we have to post to the API (line and stationName), where we already set:
    line- from button's classList(filter 'station-btn'), stationName- from button's id(3 letters length *MUST*); Map the classList to send the lines with the station-name to API and get JSON object back.
 
 Data Explain:
