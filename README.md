@@ -12,8 +12,7 @@ SearchBox:
 ===============
 Default Input1 - AEL (Airport Line) ; 
 Default Input2 - AEL's stations
-
-===============
+===
 Disadvantages/Diffuculties of 'SearchBox':
 1. Too many stations (it seems that MTR has 99stations - editing at 24/10/2024). Making the Input2 too big and hard to find the STATION that we actually need.
 2. Single output only (Eg. Station-'ADMIRALTY', it has 4 lines in this station-EAL TWL ISL SIL. The limits of SearchBox that only inputing 1 LINE input which leads the information a bit slower.)
