@@ -4,13 +4,17 @@ The project URL: https://rabb17chi.github.io/MTRcheckTime-r17/
 ---
 Map Search:
 1. SVG used. (SVG does have a better user-experience that when the user zoom-in the map / scale the webpage won't lead the 'image' to be 'pixel')
+===
+
 2. Buttons/Circles set for every station. (You would see it when you mouse-hover on the station circle.)
  2.1 Functions are also set for button
    2.1.1 Layout-color: the color(s) of the circle depends on the LINEs that the station belongs (Check 'ADMIRALTY', it has 4-lines, so we used 'conic-gradient' and set the angle for each station without fade.)
+   ===
    2.1.2 Layout-Position: the pos of each circle may not be exactly on/perfect around the original map's station. (I should use mobile-device to set the pos but i used 1920*1080 and 100% scale of PC chrome. Sorry to mobile users)
+   ===
    2.1.3 Functions: every circle has a function that called the MTR-Open-API from HKGovernment; [SourceHere](https://data.gov.hk/en-data/dataset/mtr-data2-nexttrain-data) ; the parameters we have to post to the API (line and stationName), where we already set:
    line- from button's classList(filter 'station-btn'), stationName- from button's id(3 letters length *MUST*); Map the classList to send the lines with the station-name to API and get JSON object back.
-
+---
 Data Explain:
 Once we called the API with `status=1`, means that we connected the API-service and got the data successfully. Now, let's see the data-format and how we use it:
 The Object {DOWN,UP,curr_time,sys_time}: 
