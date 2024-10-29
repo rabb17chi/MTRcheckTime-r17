@@ -1,6 +1,6 @@
 The project URL: https://rabb17chi.github.io/MTRcheckTime-r17/
 ---
- Involve: JavaScript(API fetching, JSON Objects, Date(Time such as minutes) )
+ Involve: JavaScript(API fetching, JSON Objects, Date(Time such as minutes), CSV -> JSON by Papaparse )
 ---
 Map Search:
 ===
@@ -37,3 +37,12 @@ Disadvantages/Diffuculties of 'SearchBox':
 1. Too many stations (it seems that MTR has 99stations - editing at 24/10/2024). Making the Input2 too big and hard to find the STATION that we actually need.
 2. Single output only (Eg. Station-'ADMIRALTY', it has 4 lines in this station-EAL TWL ISL SIL. The limits of SearchBox that only inputing 1 LINE input which leads the information a bit slower.)
 3. Not really user-friendly. (As the above mentioned-s, the speed/effciency of using SearchBox is really really slow as F. As the API updates per 10seconds, we should find a quicker way for this function)
+
+###
+
+29-10-24
+Function Added: Fares Checker of 2 stations (Non AEL and LightRail)
+Data Used: [MTR Lines (except Airport Express & Light Rail) Fares](https://data.gov.hk/en-data/dataset/mtr-data-routes-fares-barrier-free-facilities/resource/91e47c22-3e5d-40fe-a779-308be439c41f).
+Format: CSV file;
+Using 'Papaparse' to convert this CSV file to JSON object and turn into arrays to loop over.
+By selecting 2 diff stations on the MAP, console log the fares(Octopus 1. Adult 2. Chlid)
