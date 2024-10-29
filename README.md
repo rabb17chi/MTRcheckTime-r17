@@ -46,3 +46,7 @@ Data Used: [MTR Lines (except Airport Express & Light Rail) Fares](https://data.
 Format: CSV file;
 Using 'Papaparse' to convert this CSV file to JSON object and turn into arrays to loop over.
 By selecting 2 diff stations on the MAP, console log the fares(Octopus 1. Adult 2. Chlid)
+
+Update:
+Due to Github's website, the fares-CSV file cannot be searched by this URL, which lead this function to be useless(we got 404 when fetching the CSV)
+fares CSV file size is around 800kb but Github limit at 512kb.
