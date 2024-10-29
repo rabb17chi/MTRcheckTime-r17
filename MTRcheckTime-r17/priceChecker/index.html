@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTR PriceCheck | rabb17</title>
+</head>
+<body>
+    <h1>Price Check MTR</h1>
+    <a href="../index.html">back to main</a>
+
+    <div>
+
+        <input type="text" 
+        id="StartStationInput" 
+        maxlength="3" minlength="3" 
+        required
+        placeholder="enter ur starting station" />
+        
+        <input type="text" 
+        id="EndStationInput" 
+        maxlength="3" minlength="3" 
+        required
+        placeholder="enter ur ending station" />
+
+        <button id="submit-btn">
+            CHECK
+        </button>
+
+    
+    <div id="ShowPriceContainer">
+        <p id="Adult-Octopus">$
+            <span id="adult-price"></span>
+        </p>
+        <p id="Child-Octopus">$
+            <span id="child-price"></span>
+        </p>
+    </div>
+    </div>
+
+    <script type="module" src="./priceCheck.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" integrity="sha512-dfX5uYVXzyU8+KHqj8bjo7UkOdg18PaOtpa48djpNbZHwExddghZ+ZmzWT06R5v6NSk3ZUfsH6FNEDepLx9hPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>
