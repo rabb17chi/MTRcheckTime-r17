@@ -9,6 +9,27 @@
     
 </head>
 <body>
+
+    <div id="method-select" style="border: 2px solid red; width:fit-content; margin-bottom:15px">
+
+        <div style="padding:10px; display:inline">
+            <input type="radio" id='checkTimeFun' name="MapFunction" value="checkTime" checked /> 
+            <label for="checkTimeFun">Time Check</label>
+        </div>
+
+        <div style="padding:10px; display:inline">
+            <input type="radio" id="checkPriceFun" name="MapFunction" value="checkPrice" /> 
+            <label for="checkPriceFun">Price Check</label>
+        </div>
+
+        <h3>Method now: </h3>
+        <span id="now-method">Check Train Time</span>
+        
+        <div id="priceHolder">
+            <button id="resetButton">Reset station input(s)</button>
+        </div>
+    </div>
+
     <div 
     id="mtr-map" 
         style='width:90%;height:auto;text-align:center;'>
@@ -455,9 +476,15 @@
                 color:white;
                 top:5%;left:50%;
                 transform:translateX(-50%);
-                height:328px;
+                height:348px;
                 display:none"
             >
+            </div>
+
+            <div id="functionsSelect">
+                <div id="checkTime">Check Train Time</div>
+                <div id="setStarting">Start</div>
+                <div id="setEnding">End</div>
             </div>
 
         </div>
@@ -502,7 +529,9 @@
         </div>
     </div>
 
+
     <script type="module" src="script.js"></script>
     <script type="module" src="./scripts/function/stationButtons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" integrity="sha512-dfX5uYVXzyU8+KHqj8bjo7UkOdg18PaOtpa48djpNbZHwExddghZ+ZmzWT06R5v6NSk3ZUfsH6FNEDepLx9hPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>
