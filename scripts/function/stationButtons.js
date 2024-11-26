@@ -6,7 +6,7 @@ import { calculateTimeDiff } from "../../script.js"
 import { lineColor } from "../usefulData/lineColor.js"
 import { stationFullName } from "../usefulData/stationFullName.js"
 
-const CSV_URL = '../../resources/MTR_LINES-fares.csv'
+const CSV_URL = 'resources/MTR_LINES-fares.csv'
 const mapInfoContainer = document.getElementById('mapBtnInfoContainer')
 const circlesOptions = document.querySelectorAll('.station-btn')
 let modeSelection = document.querySelectorAll("input[name='MapFunction']")
