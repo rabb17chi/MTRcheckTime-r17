@@ -6,19 +6,19 @@ import { calculateTimeDiff } from "../../script.js"
 import { lineColor } from "../usefulData/lineColor.js"
 import { stationFullName } from "../usefulData/stationFullName.js"
 
+const CSV_URL = '../../resources/MTR_LINES-fares.csv'
 const mapInfoContainer = document.getElementById('mapBtnInfoContainer')
 const circlesOptions = document.querySelectorAll('.station-btn')
 let modeSelection = document.querySelectorAll("input[name='MapFunction']")
-let mapFunction = 'checkTime' // map default function-> time checking
+let mapFunction = 'checkTime'
 let opened = false;
 
 let startStation = '';
-let endStation = '';
+// let endStation = '';
 
-let adultFare = ''
-let childFare = ''
+let fareArray = []
 
-const CSV_URL = '../../resources/MTR_LINES-fares.csv'
+
 
 document.getElementById('resetButton').addEventListener('click',()=>{
         startStation =''
@@ -74,28 +74,51 @@ circlesOptions.forEach(item=>{
     }
 )
 
-async function loadCSV(url) {
-    try {
-        const res = await fetch(url);
-        let data = await res.blob();
-        Papa.parse(data, {
-            complete: result => {
-                getFares(result.data)
-            }
-        });
-    } catch (error) {
-        console.error('Message:',error)
-    }
-}
-function getFares(dataSet) {
-    dataSet.map( item =>{
-        if (item[0] === stationFullName[startStation] && item[2] === stationFullName[endStation]) {
-            console.log(`${bigData[startStation]} --> ${bigData[endStation]}\nAdult with Octopus', $${item[4]}; Child with Octopus, $${item[6]}`)
-            return item
+
+
+function checkFare(startStation) {
+    let fareList
+    async function loadCSV(url) {
+        try {
+            const res = await fetch(url);
+            let data = await res.blob();
+            Papa.parse(data, {
+                complete: result => {
+                    fareArray = result.data
+                    filterFareArray(fareArray)
+                }
+            });
+        } catch (error) {
+            console.error('Message:',error)
         }
-        return false
-    })
+    }
+    function filterFareArray(arr) {
+        fareList = arr.filter(item=>item[0] == startStation)
+        console.log('farelist: ',fareList)
+        fareList.map(item=>{
+            // if (document.getElementById(item[2])){
+            //     document.getElementById(item[2]).innerHTML = item[4]
+            //     return
+            // }
+            console.log(`From ${stationFullName[startStation]} to ${stationFullName[item[2]]}:\n$${item[4]}(Adult-Octopus);\n$${item[5]}(Child-Octopus)`)})
+    }
+    fareArray.length === 0 ? loadCSV(CSV_URL) : filterFareArray(fareArray)
 }
+
+
+        // function getFares(dataSet) {
+        //     dataSet.map(item=>{
+        //         if (item[0] === stationFullName[startStation] && item[2] === stationFullName[endStation]) {
+        //             console.log(
+        //                 `
+        //                 ${bigData[startStation]} --> ${bigData[endStation]}
+        //                 \nAdult with Octopus',$${item[4]};Child with Octopus, $${item[5]}
+        //                 `)
+        //             return item
+        //         }
+        //         return false
+        //     })
+        // }
 
 circlesOptions.forEach(item=>{
     item.addEventListener('click',async () => {
@@ -171,18 +194,23 @@ circlesOptions.forEach(item=>{
             return
         }
         
-        // Check Price function [2 buttons required]
-        if (startStation && endStation) {
-            console.log('please reset inputs first!')
-            return false
-        }
-        if (!startStation) {
-            console.log('1st',bigData[BtnOfStationName])
-            return startStation = BtnOfStationName
-        }
-        endStation = BtnOfStationName
-        console.log('2nd',bigData[BtnOfStationName])
-        loadCSV(CSV_URL)
-        document.getElementById('priceHolder').style.display = 'block'
+        // Check Price function [2 buttons required] -- Method 1 --
+        // if (startStation && endStation) {
+        //     console.log('please reset inputs first!')
+        //     return false
+        // }
+        // if (!startStation) {
+        //     console.log('1st',bigData[BtnOfStationName])
+        //     return startStation = BtnOfStationName
+        // }
+        // endStation = BtnOfStationName
+        // console.log('2nd',bigData[BtnOfStationName])
+        // await loadCSV(CSV_URL)
+        // document.getElementById('priceHolder').style.display = 'block'
+        // startStation = ''
+        // endStation = ''
+
+        // -- Method 2 --
+        checkFare(BtnOfStationName)
         })
 })

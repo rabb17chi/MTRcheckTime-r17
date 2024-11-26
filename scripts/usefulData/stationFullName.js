@@ -78,6 +78,7 @@ export const stationFullName = {
     'CSW': 'Cheung Sha Wan',
     'SSP': 'Sham Shui Po',
 	'PRE': 'Prince Edward',
+    'MOK': 'Mong Kok',
     'YMT': 'Yau Ma Tei',
 	'JOR': 'Jordan',
     'TST': 'Tsim Sha Tsui',
