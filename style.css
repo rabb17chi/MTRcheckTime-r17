@@ -20,9 +20,6 @@
   color: black;
   background: linear-gradient(to bottom, red, yellow);
   text-align: center;
-  max-width: 600px;
-  width: 100%;
-  min-width: 200px;
 }
 
 .select-container {
@@ -42,7 +39,6 @@ hr {
   left: 50%;
   color: white;
   display: none;
-  width: 600px;
   height: 100px;
   justify-content: space-around;
   align-items: center;

@@ -9,24 +9,29 @@ import { stationFullName } from "../usefulData/stationFullName.js"
 const CSV_URL = 'resources/MTR_LINES-fares.csv'
 const mapInfoContainer = document.getElementById('mapBtnInfoContainer')
 const circlesOptions = document.querySelectorAll('.station-btn')
+const resetBtn = document.getElementById('resetAllBtn');
 let modeSelection = document.querySelectorAll("input[name='MapFunction']")
 let mapFunction = 'checkTime'
 let opened = false;
 
 let startStation = '';
-// let endStation = '';
+let endStation = '';
 
 let fareArray = []
 
 
+// resetBtn.addEventListener('click', () => {
+//     console.log('Reset button clicked\nAll back to default.');
+//     mapFunction = 'checkTime';
+// })
 
-document.getElementById('resetButton').addEventListener('click',()=>{
-        startStation =''
-        endStation =''
-        console.log('Station selects are reset, please select 2 stations again.')
-        document.getElementById('priceHolder').style.display = 'none'
-        return false
-})
+// document.getElementById('resetButton').addEventListener('click',()=>{
+//         startStation =''
+//         endStation =''
+//         console.log('Station selects are reset, please select 2 stations again.')
+//         document.getElementById('priceHolder').style.display = 'none'
+//         return false
+// })
 
 modeSelection.forEach(item=>{
     item.addEventListener('click',()=>{
@@ -37,14 +42,14 @@ modeSelection.forEach(item=>{
 })
 
 function closeContainer() {
+    mapInfoContainer.innerHTML=''
     mapInfoContainer.style.display ='none'
-mapInfoContainer.innerHTML=''
 }
 
 circlesOptions.forEach(item=>{ 
     let styleArr = []
-    const stationLineArray = [...item.classList].filter(item=>item != 'station-btn') // get lines array
-    const count = stationLineArray.length // number of lines that station has
+    const stationLineArray = [...item.classList].filter(item=>item != 'station-btn')
+    const count = stationLineArray.length
     stationLineArray.map(item=> {
         styleArr.push(lineColor[item])
     })
@@ -74,8 +79,6 @@ circlesOptions.forEach(item=>{
     }
 )
 
-
-
 function checkFare(startStation) {
     let fareList
     async function loadCSV(url) {
@@ -96,38 +99,17 @@ function checkFare(startStation) {
         fareList = arr.filter(item=>item[0] == startStation)
         console.log('farelist: ',fareList)
         fareList.map(item=>{
-            // if (document.getElementById(item[2])){
-            //     document.getElementById(item[2]).innerHTML = item[4]
-            //     return
-            // }
             console.log(`From ${stationFullName[startStation]} to ${stationFullName[item[2]]}:\n$${item[4]}(Adult-Octopus);\n$${item[5]}(Child-Octopus)`)})
     }
+
     fareArray.length === 0 ? loadCSV(CSV_URL) : filterFareArray(fareArray)
 }
 
-
-        // function getFares(dataSet) {
-        //     dataSet.map(item=>{
-        //         if (item[0] === stationFullName[startStation] && item[2] === stationFullName[endStation]) {
-        //             console.log(
-        //                 `
-        //                 ${bigData[startStation]} --> ${bigData[endStation]}
-        //                 \nAdult with Octopus',$${item[4]};Child with Octopus, $${item[5]}
-        //                 `)
-        //             return item
-        //         }
-        //         return false
-        //     })
-        // }
-
 circlesOptions.forEach(item=>{
     item.addEventListener('click',async () => {
-
         let msg = ''
         mapInfoContainer.innerHTML = ''
         const BtnOfStationName = item.id
-
-        // Check Train Time function [1 button only]
         if (mapFunction === 'checkTime') {
             const BtnOfStationLine = [...item.classList].filter(item=>item != 'station-btn') // filter the classList, remove 'station-btn', this class is uselss in this block.
             BtnOfStationLine.map(async(item,index)=>{ // loop every line to fetch trains-data
@@ -193,24 +175,6 @@ circlesOptions.forEach(item=>{
             },500)
             return
         }
-        
-        // Check Price function [2 buttons required] -- Method 1 --
-        // if (startStation && endStation) {
-        //     console.log('please reset inputs first!')
-        //     return false
-        // }
-        // if (!startStation) {
-        //     console.log('1st',bigData[BtnOfStationName])
-        //     return startStation = BtnOfStationName
-        // }
-        // endStation = BtnOfStationName
-        // console.log('2nd',bigData[BtnOfStationName])
-        // await loadCSV(CSV_URL)
-        // document.getElementById('priceHolder').style.display = 'block'
-        // startStation = ''
-        // endStation = ''
-
-        // -- Method 2 --
         checkFare(BtnOfStationName)
         })
 })

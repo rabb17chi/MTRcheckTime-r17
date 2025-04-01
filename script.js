@@ -1,4 +1,4 @@
-// 此JavaScript 作用於 文字輸入欄的區域
+// 此JavaScript 作用於 輸入欄的區域
 
 import { bigData } from "./scripts/usefulData/stationName.js"
 
